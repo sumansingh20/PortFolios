@@ -6,7 +6,7 @@ import { ChevronDown, FileText, Github, Linkedin, Mail } from 'lucide-react';
 
 export default function Hero() {
   const resumeDownloadLink =
-    'https://drive.google.com/uc?export=download&id=1wLU-jUfl3Zu2DVXTW5IJXBfLaAdxyiJ7';
+    'https://drive.google.com/uc?export=download&id=1u8tFomA41yNeB-1RZMDDnlU0gNpLhX4J';
 
   // typed text is handled by TemplateEffects
   const rolesList = [

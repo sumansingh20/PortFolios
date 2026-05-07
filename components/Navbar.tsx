@@ -7,7 +7,7 @@ import { Menu, X } from 'lucide-react';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const resumeDownloadLink =
-    'https://drive.google.com/uc?export=download&id=1wLU-jUfl3Zu2DVXTW5IJXBfLaAdxyiJ7';
+    'https://drive.google.com/uc?export=download&id=1u8tFomA41yNeB-1RZMDDnlU0gNpLhX4J';
 
   const navItems = [
     { label: 'Home', href: '#hero' },

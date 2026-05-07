@@ -48,7 +48,7 @@ export default function Footer() {
                 { label: 'Contact', href: '#contact' },
                 {
                   label: 'Resume',
-                  href: 'https://drive.google.com/uc?export=download&id=1wLU-jUfl3Zu2DVXTW5IJXBfLaAdxyiJ7',
+                  href: 'https://drive.google.com/uc?export=download&id=1u8tFomA41yNeB-1RZMDDnlU0gNpLhX4J',
                   external: true,
                 },
               ].map((link, i) => (
