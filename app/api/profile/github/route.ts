@@ -64,17 +64,42 @@ export async function GET() {
         })
       : undefined;
 
+    // Curated descriptions for repos that have none set on GitHub.
+    const curatedDescriptions: Record<string, string> = {
+      'Threavix-AI':
+        'Agentic AI cybersecurity platform for security log analysis, threat intelligence, and incident investigation.',
+      'NexaMind-AI':
+        'Agentic RAG platform for intelligent document research and knowledge automation.',
+      'Synthera-AI':
+        'Multi-agent AI research platform that automates web research, source verification, and report generation.',
+      'Aegis-Offensive-Security-Framework':
+        'Offensive security framework and ethical hacking tooling.',
+      'Ai-Driven-Zero-Trust-Security':
+        'AI-driven zero-trust security platform with a live deployed demo.',
+      'kavach-infinity':
+        'AI-powered critical infrastructure protection with real-time monitoring and anomaly detection.',
+      InventraErp:
+        'Full-stack inventory and ERP system with operational dashboards.',
+      EdyraLMS:
+        'Learning management system with proctored online examinations.',
+    };
+
     const topRepos = Array.isArray(repos)
       ? repos
-          .filter((r: any) => !r.fork)
-          .sort((a: any, b: any) => (b.stargazers_count ?? 0) - (a.stargazers_count ?? 0))
+          .filter((r: any) => !r.fork && r.name !== USERNAME)
+          .sort(
+            (a: any, b: any) =>
+              new Date(b.pushed_at ?? 0).getTime() -
+              new Date(a.pushed_at ?? 0).getTime()
+          )
           .slice(0, 6)
           .map((r: any) => ({
             name: r.name,
             html_url: r.html_url,
-            description: r.description,
+            description: r.description ?? curatedDescriptions[r.name] ?? null,
             stars: r.stargazers_count ?? 0,
             language: r.language ?? null,
+            pushedAt: r.pushed_at ?? null,
           }))
       : [];
 

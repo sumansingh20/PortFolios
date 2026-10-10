@@ -5,9 +5,9 @@ import SectionHeading from '@/components/SectionHeading';
 
 export default function About() {
   const stats = [
-    { label: 'Projects', value: '10+' },
-    { label: 'Security Systems', value: '8+' },
-    { label: 'Contributions', value: '50+' },
+    { label: 'Public Repositories', value: '58' },
+    { label: 'Featured Projects', value: '6' },
+    { label: 'Certifications', value: '6' },
     { label: 'CGPA', value: '8.65' },
   ];
 
@@ -30,23 +30,20 @@ export default function About() {
             className="space-y-5 text-body"
           >
             <p className="text-lg font-inter leading-relaxed">
-              I'm a passionate Cybersecurity Engineer and AI Developer from{' '}
-              <span className="text-cyber-cyan font-semibold">
-                IIT Patna
-              </span>
-              , deeply committed to building intelligent, secure, and innovative systems.
+              I'm a security-focused developer and a BSc Computer Science &
+              Data Analytics student at{' '}
+              <span className="text-cyber-cyan font-semibold">IIT Patna</span>,
+              building secure and scalable applications.
             </p>
             <p className="text-lg font-inter leading-relaxed">
-              My expertise spans offensive security, ethical hacking, AI-driven
-              security systems, and full-stack development. I'm particularly
-              interested in designing next-generation cybersecurity platforms
-              and exploring the intersection of AI and security.
+              My work spans application security, offensive security tooling,
+              and full-stack development — from AI-driven security platforms
+              and agentic AI systems to production web applications.
             </p>
             <p className="text-lg font-inter leading-relaxed">
-              With hands-on experience in penetration testing, vulnerability
-              assessment, security automation, and AI model integration, I'm
-              driven to solve real-world problems and contribute to the
-              cybersecurity and tech startup ecosystem.
+              I like turning ideas into shipped software: designing the system,
+              hardening it, and iterating in public. Most of what I build lives
+              on my GitHub — take a look at the projects below.
             </p>
           </motion.div>
 

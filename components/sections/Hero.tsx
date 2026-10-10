@@ -1,29 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, FileText, Github, Linkedin, Mail } from 'lucide-react';
+import { site } from '@/lib/site';
 
 export default function Hero() {
-  const resumeDownloadLink =
-    'https://drive.google.com/uc?export=download&id=1u8tFomA41yNeB-1RZMDDnlU0gNpLhX4J';
-
-  // typed text is handled by TemplateEffects
-  const rolesList = [
-
-    'Ethical Hacker',
-
-    'AI/ML Engineer',
-    'Offensive Security Researcher',
-    'Cybersecurity Analyst',
-    'Full Stack Engineer',
-    'Security Automation Developer',
-    'AI Security Innovator',
-  ];
-
-
-
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -44,29 +25,35 @@ export default function Hero() {
     },
   };
 
+  const socials = [
+    { Icon: Github, link: site.socials.github, label: 'GitHub' },
+    { Icon: Linkedin, link: site.socials.linkedin, label: 'LinkedIn' },
+    { Icon: Mail, link: `mailto:${site.email}`, label: 'Email' },
+  ];
+
   return (
     <section
       id="hero"
       className="relative min-h-screen w-full flex items-center justify-center pt-24 overflow-hidden section-shell"
     >
-      {/* Animated background elements */}
-      <div className="absolute inset-0 -z-10 soft-grid opacity-35" />
+      {/* Animated particle / grid canvas (driven by TemplateEffects) */}
+      <canvas
+        id="heroCanvas"
+        className="absolute inset-0 -z-10 h-full w-full"
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 -z-10 soft-grid opacity-20" />
+
+      {/* Glowing orbs */}
       <div className="absolute inset-0 -z-10">
-        {/* Glowing orbs */}
         <motion.div
           className="absolute top-20 left-10 w-72 h-72 bg-cyber-cyan/20 rounded-full blur-3xl"
-          animate={{
-            x: [0, 50, -50, 0],
-            y: [0, 50, -50, 0],
-          }}
+          animate={{ x: [0, 50, -50, 0], y: [0, 50, -50, 0] }}
           transition={{ duration: 8, repeat: Infinity }}
         />
         <motion.div
           className="absolute bottom-20 right-10 w-72 h-72 bg-cyber-purple/20 rounded-full blur-3xl"
-          animate={{
-            x: [0, -50, 50, 0],
-            y: [0, -50, 50, 0],
-          }}
+          animate={{ x: [0, -50, 50, 0], y: [0, -50, 50, 0] }}
           transition={{ duration: 10, repeat: Infinity }}
         />
       </div>
@@ -78,6 +65,18 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
         >
+          {/* Availability pill */}
+          <motion.div
+            className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-cyber-emerald/30 bg-cyber-emerald/5 px-4 py-1.5 font-jetbrains text-[0.68rem] uppercase tracking-[0.22em] text-cyber-emerald"
+            variants={itemVariants}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyber-emerald opacity-70" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-cyber-emerald" />
+            </span>
+            Available for opportunities
+          </motion.div>
+
           {/* Profile picture */}
           <motion.div
             className="mx-auto mb-8 w-24 h-24 md:w-28 md:h-28 rounded-full border border-cyber-cyan/30 bg-cyber-cyan/5 backdrop-blur-md shadow-[0_0_40px_rgba(0,245,255,0.18)] overflow-hidden ring-1 ring-white/10"
@@ -88,7 +87,7 @@ export default function Hero() {
           >
             <img
               src="/suman.png"
-              alt="Suman Kumar"
+              alt={site.name}
               className="w-full h-full object-cover"
             />
           </motion.div>
@@ -99,32 +98,31 @@ export default function Hero() {
             variants={itemVariants}
           >
             <span className="bg-gradient-cyber bg-clip-text text-transparent">
-              Suman Kumar
+              {site.name}
             </span>
           </motion.h1>
 
-          {/* Typed role (template compatible) */}
+          {/* Typed role (driven by TemplateEffects) */}
           <div className="h-16 md:h-20 mb-8 flex items-center justify-center">
             <span className="text-xl md:text-2xl font-bold text-cyber-cyan font-jetbrains tracking-[0.12em] uppercase">
               <span className="text-cyber-cyan/50">// </span>
               <span id="typed-text" />
-              <span
-                id="typed-cursor"
-                className="typed-cursor inline-block ml-1"
-              >
+              <span id="typed-cursor" className="typed-cursor inline-block ml-1">
                 _
               </span>
             </span>
           </div>
-
 
           {/* Subtitle */}
           <motion.p
             className="text-lg md:text-xl text-body mb-12 max-w-2xl mx-auto font-inter"
             variants={itemVariants}
           >
-            Building intelligent AI-powered cybersecurity systems, offensive security frameworks, and futuristic digital experiences from{' '}
-            <span className="text-cyber-cyan font-semibold">IIT Patna</span>
+            Building secure, scalable applications and AI-powered systems — from
+            offensive security tooling to full-stack products — studying at{' '}
+            <span className="text-cyber-cyan font-semibold">
+              IIT Patna
+            </span>
           </motion.p>
 
           {/* CTA Buttons */}
@@ -149,7 +147,7 @@ export default function Hero() {
               Contact Me
             </motion.a>
             <motion.a
-              href="https://github.com"
+              href={site.socials.github}
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 rounded-full border-2 border-cyber-blue text-cyber-blue font-bold section-title hover:bg-cyber-blue/10 transition-all"
@@ -159,7 +157,7 @@ export default function Hero() {
               GitHub
             </motion.a>
             <motion.a
-              href={resumeDownloadLink}
+              href={site.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 rounded-full border-2 border-cyber-emerald text-cyber-emerald font-bold section-title hover:bg-cyber-emerald/10 transition-all inline-flex items-center gap-2"
@@ -176,16 +174,13 @@ export default function Hero() {
             className="flex gap-6 justify-center"
             variants={itemVariants}
           >
-            {[
-              { Icon: Github, link: 'https://github.com' },
-              { Icon: Linkedin, link: 'https://linkedin.com' },
-              { Icon: Mail, link: 'mailto:suman@example.com' },
-            ].map(({ Icon, link }, i) => (
+            {socials.map(({ Icon, link, label }, i) => (
               <motion.a
                 key={i}
                 href={link}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={link.startsWith('mailto:') ? undefined : '_blank'}
+                rel={link.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                aria-label={label}
                 className="p-3 rounded-full border border-cyber-cyan/20 text-cyber-cyan hover:border-cyber-cyan hover:bg-cyber-cyan/10 transition-all bg-black/20"
                 whileHover={{ scale: 1.1, rotate: 5 }}
               >

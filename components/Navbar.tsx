@@ -3,11 +3,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { site } from '@/lib/site';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const resumeDownloadLink =
-    'https://drive.google.com/uc?export=download&id=1u8tFomA41yNeB-1RZMDDnlU0gNpLhX4J';
 
   const navItems = [
     { label: 'Home', href: '#hero' },
@@ -57,7 +56,7 @@ export default function Navbar() {
 
           {/* CTA Button */}
           <motion.a
-            href={resumeDownloadLink}
+            href={site.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:block px-6 py-2 rounded-full bg-gradient-cyber text-black font-bold text-sm section-title hover:shadow-glow-cyan transition-all"

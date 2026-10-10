@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
+import { site } from '@/lib/site';
 
 type FormState =
   | { status: 'idle' }
@@ -31,7 +32,7 @@ export default function Contact() {
 
   const [formState, setFormState] = useState<FormState>({ status: 'idle' });
 
-  const emailTo = 'sumantech07@gmail.com';
+  const emailTo = site.email;
 
   const isEmailValid = useMemo(() => {
     const v = formData.email.trim();
@@ -105,7 +106,7 @@ export default function Contact() {
     {
       icon: Mail,
       label: 'Email',
-      value: 'sumantech07@gmail.com',
+      value: site.email,
       description: 'Best for project briefs, internships, and serious collaboration.',
       link: `mailto:${emailTo}`,
       accent: 'from-cyan-400/20 to-cyan-400/5',
@@ -116,32 +117,32 @@ export default function Contact() {
       label: 'LinkedIn',
       value: 'in/sumankumar-',
       description: 'Professional updates, networking, and role discussions.',
-      link: 'https://www.linkedin.com/in/sumankumar-/',
+      link: site.socials.linkedin,
       accent: 'from-blue-400/20 to-blue-400/5',
       color: 'text-cyber-blue',
     },
     {
       icon: Github,
       label: 'GitHub',
-      value: 'sumansingh20',
+      value: site.githubUsername,
       description: 'Code, systems, and security-focused projects.',
-      link: 'https://github.com/sumansingh20',
+      link: site.socials.github,
       accent: 'from-purple-400/20 to-purple-400/5',
       color: 'text-cyber-purple',
     },
     {
       icon: Code2,
       label: 'LeetCode',
-      value: 'sumansingh20',
+      value: site.githubUsername,
       description: 'Problem solving, consistency, and interview prep.',
-      link: 'https://leetcode.com/u/sumansingh20/',
+      link: site.socials.leetcode,
       accent: 'from-emerald-400/20 to-emerald-400/5',
       color: 'text-cyber-emerald',
     },
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Patna, Bihar, India',
+      value: site.location,
       description: 'Open to remote, hybrid, and on-site opportunities.',
       link: 'https://www.google.com/maps/search/Patna,+Bihar,+India',
       accent: 'from-amber-400/20 to-amber-400/5',

@@ -29,24 +29,35 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Suman Kumar - Cybersecurity Engineer & AI Developer',
+  title: 'Suman Kumar - Security Engineer & Full-Stack Developer',
   description:
-    'Ultra-premium portfolio of Suman Kumar - Cybersecurity Engineer, AI Developer, and Ethical Hacker from IIT Patna. Building intelligent AI-powered cybersecurity systems.',
+    'Portfolio of Suman Kumar - Security Engineer and Full-Stack Developer from IIT Patna. Building secure, scalable applications and AI-powered systems.',
   keywords: [
+    'Suman Kumar',
+    'sumansingh20',
+    'security engineer',
     'cybersecurity',
-    'AI developer',
-    'ethical hacker',
-    'penetration testing',
-    'offensive security',
-    'IIT Patna',
     'full stack developer',
+    'ethical hacking',
+    'penetration testing',
+    'AI developer',
+    'IIT Patna',
   ],
-  authors: [{ name: 'Suman Kumar' }],
+  authors: [{ name: 'Suman Kumar', url: 'https://github.com/sumansingh20' }],
+  creator: 'Suman Kumar',
+  metadataBase: new URL('https://github.com/sumansingh20/PortFolios'),
   openGraph: {
-    title: 'Suman Kumar - Cybersecurity Engineer & AI Developer',
+    title: 'Suman Kumar - Security Engineer & Full-Stack Developer',
     description:
-      'Ultra-premium portfolio of Suman Kumar - Building intelligent AI-powered cybersecurity systems.',
+      'Security Engineer and Full-Stack Developer from IIT Patna. Building secure, scalable applications and AI-powered systems.',
     type: 'website',
+    siteName: 'Suman Kumar',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Suman Kumar - Security Engineer & Full-Stack Developer',
+    description:
+      'Security Engineer and Full-Stack Developer from IIT Patna. Building secure, scalable applications and AI-powered systems.',
   },
 };
 

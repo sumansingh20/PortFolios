@@ -4,88 +4,112 @@ import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 
+type Project = {
+  title: string;
+  description: string;
+  tags: string[];
+  features: string[];
+  color: string;
+  gradient: string;
+  code: string;
+  demo?: string;
+};
+
 export default function Projects() {
-  const projects = [
+  const projects: Project[] = [
     {
-      title: 'Secure Multi-Factor Authentication Platform',
+      title: 'Threavix-AI',
       description:
-        'Advanced MFA system with OTP verification and secure session protection mechanisms.',
-      tags: [
-        'Python',
-        'Flask',
-        'JWT',
-        'bcrypt',
-        'MySQL',
-        'REST APIs',
-      ],
+        'Agentic AI cybersecurity platform for security log analysis, threat intelligence, and incident investigation with evidence-based remediation.',
+      tags: ['Python', 'LLMs', 'RAG', 'LangGraph', 'FastAPI', 'MITRE ATT&CK'],
       features: [
-        'Multi-factor authentication',
-        'OTP verification',
-        'Token-based protection',
-        'Session management',
+        'Security log analysis',
+        'Threat intelligence',
+        'MITRE ATT&CK mapping',
+        'Evidence-based remediation',
       ],
       color: 'border-cyber-cyan/30 hover:border-cyber-cyan/60',
       gradient: 'from-cyber-cyan/10 to-cyber-blue/10',
+      code: 'https://github.com/sumansingh20/Threavix-AI',
     },
     {
-      title: 'Aegis Offensive Security Framework',
+      title: 'Ai-Driven Zero-Trust Security',
       description:
-        'Comprehensive framework for vulnerability assessment, threat analysis, and security monitoring.',
-      tags: [
-        'Python',
-        'Linux',
-        'Bash',
-        'Security Tools',
-        'Network Security',
-      ],
+        'Zero-trust security platform that applies AI-driven policies to continuously verify and protect access across the stack.',
+      tags: ['TypeScript', 'Zero Trust', 'AI', 'Security'],
       features: [
-        'Vulnerability scanning',
-        'Threat analysis',
-        'Security automation',
-        'Offensive testing workflows',
+        'Continuous verification',
+        'AI-driven policy',
+        'Least-privilege access',
+        'Live deployed demo',
       ],
       color: 'border-cyber-purple/30 hover:border-cyber-purple/60',
       gradient: 'from-cyber-purple/10 to-cyber-cyan/10',
+      code: 'https://github.com/sumansingh20/Ai-Driven-Zero-Trust-Security',
+      demo: 'https://cybershieldzerotrust.netlify.app/',
     },
     {
-      title: 'BharatMail Secure Email Platform',
+      title: 'Kavach Infinity',
       description:
-        'Secure email platform with end-to-end authentication and encrypted communication workflows.',
-      tags: [
-        'TypeScript',
-        'Node.js',
-        'PostgreSQL',
-        'bcrypt',
-        'REST APIs',
-      ],
+        'AI-powered critical infrastructure protection platform with real-time monitoring, anomaly detection, and safety automation for grids and smart cities.',
+      tags: ['Python', 'Anomaly Detection', 'Real-time Monitoring', 'AI'],
       features: [
-        'Secure authentication',
-        'Protected communication',
-        'Encrypted workflows',
-        'User security management',
-      ],
-      color: 'border-cyber-blue/30 hover:border-cyber-blue/60',
-      gradient: 'from-cyber-blue/10 to-cyber-emerald/10',
-    },
-    {
-      title: 'Smart Traffic Violation Detector',
-      description:
-        'AI-powered real-time traffic monitoring and violation detection system using advanced computer vision.',
-      tags: [
-        'YOLOv5',
-        'OpenCV',
-        'TensorFlow',
-        'Python',
-        'Real-time Analytics',
-      ],
-      features: [
-        'Vehicle detection',
-        'Real-time analytics',
-        'Speed estimation',
-        'Automated monitoring',
+        'Real-time monitoring',
+        'Anomaly detection',
+        'Safety automation',
+        'Infrastructure telemetry',
       ],
       color: 'border-cyber-emerald/30 hover:border-cyber-emerald/60',
       gradient: 'from-cyber-emerald/10 to-cyber-purple/10',
+      code: 'https://github.com/sumansingh20/kavach-infinity',
+      demo: 'https://kavach-infinity-full.vercel.app',
+    },
+    {
+      title: 'NexaMind-AI',
+      description:
+        'Agentic RAG platform for intelligent document research and knowledge automation with semantic search and source citations.',
+      tags: ['Python', 'LangGraph', 'Vector DB', 'RAG', 'FastAPI'],
+      features: [
+        'Semantic search',
+        'Source citations',
+        'Document research',
+        'AI evaluation',
+      ],
+      color: 'border-cyber-blue/30 hover:border-cyber-blue/60',
+      gradient: 'from-cyber-blue/10 to-cyber-emerald/10',
+      code: 'https://github.com/sumansingh20/NexaMind-AI',
+    },
+    {
+      title: 'Inventra ERP',
+      description:
+        'Full-stack inventory and ERP system covering stock tracking, orders, and operational dashboards for small businesses.',
+      tags: ['JavaScript', 'Full Stack', 'Dashboard', 'REST'],
+      features: [
+        'Inventory tracking',
+        'Order management',
+        'Reporting dashboard',
+        'Live deployed demo',
+      ],
+      color: 'border-cyber-cyan/30 hover:border-cyber-cyan/60',
+      gradient: 'from-cyber-cyan/10 to-cyber-emerald/10',
+      code: 'https://github.com/sumansingh20/InventraErp',
+      demo: 'https://inventory-three-beryl-77.vercel.app',
+    },
+    {
+      title: 'Edyra LMS',
+      description:
+        'Learning management system with proctored online examinations and a modern learning experience for students and instructors.',
+      tags: ['TypeScript', 'Next.js', 'Proctored Exams', 'EdTech'],
+      features: [
+        'Proctored exams',
+        'Course delivery',
+        'Student analytics',
+        'Live deployed demo',
+      ],
+      color: 'border-cyber-purple/30 hover:border-cyber-purple/60',
+      gradient: 'from-cyber-purple/10 to-cyber-blue/10',
+      code: 'https://github.com/sumansingh20/EdyraLMS',
+      demo: 'https://proctoredexam.vercel.app/',
     },
   ];
 
@@ -94,7 +118,7 @@ export default function Projects() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
       },
     },
   };
@@ -114,7 +138,7 @@ export default function Projects() {
         <SectionHeading
           index="05"
           title="Featured Projects"
-          subtitle="Selected work that blends security, automation, and product-minded engineering."
+          subtitle="Real, shipped work from my GitHub — security platforms, AI systems, and full-stack products."
         />
 
         <motion.div
@@ -132,10 +156,11 @@ export default function Projects() {
               whileHover={{ y: -10 }}
             >
               {/* Gradient background */}
-              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity -z-10`} />
+              <div
+                className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity -z-10`}
+              />
 
-              {/* Content */}
-              <div className="relative z-10">
+              <div className="relative z-10 flex h-full flex-col">
                 <h3 className="text-xl font-bold text-cyber-cyan mb-3 section-title group-hover:text-white transition-colors">
                   {project.title}
                 </h3>
@@ -174,23 +199,31 @@ export default function Projects() {
                 </div>
 
                 {/* Links */}
-                <div className="flex gap-3 pt-4 border-t border-cyber-cyan/10">
-                  <motion.button
+                <div className="mt-auto flex gap-3 pt-4 border-t border-cyber-cyan/10">
+                  <motion.a
+                    href={project.code}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex-1 py-2 rounded bg-cyber-cyan/10 text-cyber-cyan hover:bg-cyber-cyan/20 transition-all text-sm font-inter font-semibold flex items-center justify-center gap-2"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <Github size={16} />
                     Code
-                  </motion.button>
-                  <motion.button
-                    className="flex-1 py-2 rounded bg-cyber-blue/10 text-cyber-blue hover:bg-cyber-blue/20 transition-all text-sm font-inter font-semibold flex items-center justify-center gap-2"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <ExternalLink size={16} />
-                    Demo
-                  </motion.button>
+                  </motion.a>
+                  {project.demo && (
+                    <motion.a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 py-2 rounded bg-cyber-blue/10 text-cyber-blue hover:bg-cyber-blue/20 transition-all text-sm font-inter font-semibold flex items-center justify-center gap-2"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <ExternalLink size={16} />
+                      Live Demo
+                    </motion.a>
+                  )}
                 </div>
               </div>
             </motion.div>

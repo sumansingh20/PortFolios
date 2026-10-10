@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Heart } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
+import { site } from '@/lib/site';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -24,11 +25,11 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <h3 className="text-lg font-bold text-cyber-cyan mb-3 section-title">
-              Suman Kumar
+              {site.name}
             </h3>
             <p className="text-body text-sm font-inter">
-              Cybersecurity Engineer & AI Developer from IIT Patna, building
-              intelligent secure systems and exploring the future of technology.
+              Security Engineer & Full-Stack Developer from IIT Patna, building
+              secure, scalable applications and AI-powered systems.
             </p>
           </motion.div>
 
@@ -48,7 +49,7 @@ export default function Footer() {
                 { label: 'Contact', href: '#contact' },
                 {
                   label: 'Resume',
-                  href: 'https://drive.google.com/uc?export=download&id=1u8tFomA41yNeB-1RZMDDnlU0gNpLhX4J',
+                  href: site.resumeUrl,
                   external: true,
                 },
               ].map((link, i) => (
@@ -76,15 +77,15 @@ export default function Footer() {
             <h4 className="text-sm font-bold text-cyber-cyan mb-3 font-jetbrains tracking-[0.18em] uppercase">FOLLOW</h4>
             <div className="flex gap-4">
               {[
-                { Icon: Github, link: 'https://github.com/sumansingh20' },
-                { Icon: Linkedin, link: 'https://www.linkedin.com/in/sumankumar-/' },
-                { Icon: Mail, link: 'mailto:sumansingh20@outlook.com' },
+                { Icon: Github, link: site.socials.github },
+                { Icon: Linkedin, link: site.socials.linkedin },
+                { Icon: Mail, link: `mailto:${site.email}` },
               ].map(({ Icon, link }, i) => (
                 <motion.a
                   key={i}
                   href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={link.startsWith('mailto:') ? undefined : '_blank'}
+                  rel={link.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                   className="p-2 rounded-xl border border-cyber-cyan/20 text-cyber-cyan hover:border-cyber-cyan hover:bg-cyber-cyan/10 transition-all"
                   whileHover={{ scale: 1.1 }}
                 >

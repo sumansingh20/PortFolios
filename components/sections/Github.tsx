@@ -2,8 +2,18 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github as GithubIcon, ExternalLink } from 'lucide-react';
+import { Github as GithubIcon, ExternalLink, Star } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
+import { site } from '@/lib/site';
+
+type Repo = {
+  name: string;
+  html_url: string;
+  description?: string | null;
+  stars?: number;
+  language?: string | null;
+  pushedAt?: string | null;
+};
 
 type GithubProfile = {
   ok: boolean;
@@ -11,17 +21,72 @@ type GithubProfile = {
   publicRepoCount: number;
   followers: number;
   lastPushedLabel: string;
-  topRepos: Array<{
-    name: string;
-    html_url: string;
-    description?: string;
-    stars?: number;
-    language?: string | null;
-  }>;
+  topRepos: Repo[];
   rateLimited?: boolean;
   error?: string;
 };
 
+// Real repositories used only if the GitHub API is unreachable (e.g. rate limit).
+const fallbackRepos: Repo[] = [
+  {
+    name: 'Threavix-AI',
+    html_url: 'https://github.com/sumansingh20/Threavix-AI',
+    description:
+      'Agentic AI cybersecurity platform for security log analysis, threat intelligence, and incident investigation.',
+    stars: 0,
+    language: 'Python',
+  },
+  {
+    name: 'NexaMind-AI',
+    html_url: 'https://github.com/sumansingh20/NexaMind-AI',
+    description:
+      'Agentic RAG platform for intelligent document research and knowledge automation.',
+    stars: 0,
+    language: 'Python',
+  },
+  {
+    name: 'Synthera-AI',
+    html_url: 'https://github.com/sumansingh20/Synthera-AI',
+    description:
+      'Multi-agent AI research platform that automates web research, source verification, and report generation.',
+    stars: 0,
+    language: 'Python',
+  },
+  {
+    name: 'Aegis-Offensive-Security-Framework',
+    html_url:
+      'https://github.com/sumansingh20/Aegis-Offensive-Security-Framework',
+    description: 'Offensive security framework and ethical hacking tooling.',
+    stars: 1,
+    language: 'TypeScript',
+  },
+  {
+    name: 'Ai-Driven-Zero-Trust-Security',
+    html_url:
+      'https://github.com/sumansingh20/Ai-Driven-Zero-Trust-Security',
+    description: 'AI-driven zero-trust security platform.',
+    stars: 1,
+    language: 'TypeScript',
+  },
+  {
+    name: 'kavach-infinity',
+    html_url: 'https://github.com/sumansingh20/kavach-infinity',
+    description:
+      'AI-powered critical infrastructure protection with real-time monitoring and anomaly detection.',
+    stars: 1,
+    language: 'Python',
+  },
+];
+
+const languageColors: Record<string, string> = {
+  Python: '#3572A5',
+  TypeScript: '#3178c6',
+  JavaScript: '#f1e05a',
+  Java: '#b07219',
+  Scala: '#c22d40',
+  HTML: '#e34c26',
+  'Jupyter Notebook': '#DA5B0B',
+};
 
 export default function Github() {
   const [profile, setProfile] = useState<GithubProfile | null>(null);
@@ -39,11 +104,11 @@ export default function Github() {
           setProfile(data);
           setError(null);
         } else {
-          setError(data?.error ?? 'Failed to load GitHub profile');
+          setError(data?.error ?? 'Live GitHub data unavailable');
         }
       } catch (e: any) {
         if (!mounted) return;
-        setError(e?.message ?? 'Failed to load GitHub profile');
+        setError(e?.message ?? 'Live GitHub data unavailable');
       } finally {
         if (!mounted) return;
         setLoading(false);
@@ -55,18 +120,35 @@ export default function Github() {
     };
   }, []);
 
-  const repoCount = profile?.publicRepoCount ?? 20;
-  const followers = profile?.followers ?? 100;
-  const topRepos = profile?.topRepos ?? [];
+  const repoCount = profile?.publicRepoCount;
+  const followers = profile?.followers;
+  const topRepos = profile?.topRepos?.length ? profile.topRepos : fallbackRepos;
+
+  const stats = [
+    {
+      value: loading ? '—' : repoCount != null ? `${repoCount}` : '—',
+      label: 'Public Repositories',
+      color: 'text-cyber-cyan',
+    },
+    {
+      value: loading ? '—' : followers != null ? `${followers}` : '—',
+      label: 'Followers',
+      color: 'text-cyber-purple',
+    },
+    {
+      value: loading ? '—' : profile?.lastPushedLabel ?? '—',
+      label: 'Last Push',
+      color: 'text-cyber-emerald',
+    },
+  ];
 
   return (
-
     <section id="github" className="section-shell w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           index="07"
           title="GitHub Activity"
-          subtitle="A snapshot of open-source work and the collaboration trail behind it."
+          subtitle="Live data pulled straight from my GitHub profile — repositories, activity, and open-source work."
         />
 
         <motion.div
@@ -77,13 +159,12 @@ export default function Github() {
           viewport={{ once: true }}
           whileHover={{ y: -5 }}
         >
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
             <h3 className="text-2xl font-bold text-cyber-cyan flex items-center gap-2 section-title">
-              <GithubIcon size={28} />
-              Open Source Contributions
+              <GithubIcon size={28} />@{site.githubUsername}
             </h3>
             <motion.a
-              href="https://github.com"
+              href={site.socials.github}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 rounded-full bg-cyber-cyan/10 text-cyber-cyan hover:bg-cyber-cyan/20 transition-all text-sm font-inter"
@@ -95,108 +176,94 @@ export default function Github() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.0 }}
-              viewport={{ once: true }}
-            >
-              <div className="text-3xl font-bold text-cyber-cyan mb-2 section-title">
-                {loading ? '—' : `${repoCount}+`}
-              </div>
-              <div className="text-body font-inter">Repositories</div>
-            </motion.div>
-
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div className="text-3xl font-bold text-cyber-purple mb-2 section-title">
-                {loading ? '—' : 'Live'}
-              </div>
-              <div className="text-body font-inter">Collaboration</div>
-            </motion.div>
-
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <div className="text-3xl font-bold text-cyber-emerald mb-2 section-title">
-                {loading ? '—' : `${followers}+`}
-              </div>
-              <div className="text-body font-inter">Followers</div>
-            </motion.div>
+            {stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                className="text-center"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div
+                  className={`text-3xl font-bold mb-2 section-title ${stat.color}`}
+                >
+                  {stat.value}
+                </div>
+                <div className="text-body font-inter text-sm">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
 
           <div className="mt-8 pt-8 border-t border-cyber-cyan/10">
             {error ? (
-              <p className="text-body font-inter text-center text-red-300">
-                {error}
+              <p className="text-body font-inter text-center text-sm opacity-80">
+                Live GitHub API is rate-limited right now — showing a curated
+                selection of my repositories below.
               </p>
             ) : (
-              <p className="text-body font-inter text-center">
-                Active contributor to open-source security projects, AI frameworks, and developer tools.
-                Last push: <span className="text-white/90">{loading ? '—' : (profile?.lastPushedLabel ?? '—')}</span>.
-                Check my GitHub for the latest repositories and contributions.
+              <p className="text-body font-inter text-center text-sm opacity-80">
+                Active contributor to open-source security, AI, and developer
+                tooling. Check my GitHub for the latest repositories.
               </p>
             )}
           </div>
 
-          {topRepos.length > 0 && (
-            <div className="mt-6">
-              <div className="text-body font-inter text-sm mb-3 opacity-80">
-                Top repositories (by stars)
-              </div>
-              <div className="grid md:grid-cols-2 gap-4">
-                {topRepos.map((r) => (
-                  <motion.a
-                    key={r.html_url}
-                    href={r.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group rounded-2xl border border-white/10 bg-black/20 p-4 transition-all hover:-translate-y-0.5"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <div className="section-title text-white font-bold">
-                          {r.name}
-                        </div>
-                        {r.description && (
-                          <div className="text-body text-sm mt-1 line-clamp-2">
-                            {r.description}
-                          </div>
-                        )}
-                      </div>
-                      <div className="text-cyber-cyan text-sm font-semibold">
-                        ★ {r.stars ?? 0}
-                      </div>
+          <div className="mt-6">
+            <div className="text-body font-inter text-sm mb-3 opacity-80">
+              Recently active repositories
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              {topRepos.map((r) => (
+                <motion.a
+                  key={r.html_url}
+                  href={r.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-2xl border border-white/10 bg-black/20 p-4 transition-all hover:-translate-y-0.5 hover:border-cyber-cyan/40"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="section-title text-white font-bold">
+                      {r.name}
                     </div>
-                    {r.language && (
-                      <div className="mt-3 text-xs text-white/70">
-                        Language: <span className="text-white/90">{r.language}</span>
+                    {typeof r.stars === 'number' && r.stars > 0 && (
+                      <div className="flex items-center gap-1 text-cyber-cyan text-sm font-semibold">
+                        <Star size={13} className="fill-cyber-cyan/40" />
+                        {r.stars}
                       </div>
                     )}
-                    <div className="mt-3 flex items-center gap-2 text-cyber-cyan/80 group-hover:text-cyber-cyan transition-colors">
+                  </div>
+                  {r.description && (
+                    <div className="text-body text-sm mt-1 line-clamp-2">
+                      {r.description}
+                    </div>
+                  )}
+                  <div className="mt-3 flex items-center justify-between gap-2">
+                    {r.language && (
+                      <span className="flex items-center gap-2 text-xs text-white/70">
+                        <span
+                          className="h-2.5 w-2.5 rounded-full"
+                          style={{
+                            backgroundColor:
+                              languageColors[r.language] ?? '#8b949e',
+                          }}
+                        />
+                        {r.language}
+                      </span>
+                    )}
+                    <span className="flex items-center gap-2 text-cyber-cyan/80 group-hover:text-cyber-cyan transition-colors text-xs">
                       View
                       <ExternalLink size={14} />
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
+                    </span>
+                  </div>
+                </motion.a>
+              ))}
             </div>
-          )}
-
+          </div>
         </motion.div>
       </div>
     </section>

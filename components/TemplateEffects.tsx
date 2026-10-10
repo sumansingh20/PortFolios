@@ -132,6 +132,37 @@ export default function TemplateEffects() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
+    // Scroll progress bar
+    const bar = document.getElementById('scroll-progress');
+    if (!bar) return;
+
+    let raf = 0;
+    const update = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const progress = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+      bar.style.transform = `scaleX(${progress / 100})`;
+      raf = 0;
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
     if (prefersReducedMotion) return;
 
     // Typed text
@@ -364,6 +395,9 @@ export default function TemplateEffects() {
       <div id="cursor" />
       <div id="cursor-ring" />
 
+      {/* Scroll progress */}
+      <div id="scroll-progress" aria-hidden="true" />
+
       {/* Preloader */}
       <div id="preloader">
         <div className="logo-text">SK</div>
@@ -407,6 +441,19 @@ export default function TemplateEffects() {
           transform: translate(-50%, -50%);
           transition: transform 0.08s linear, width 0.2s, height 0.2s,
             border-color 0.2s;
+        }
+        #scroll-progress {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 2px;
+          transform: scaleX(0);
+          transform-origin: 0 50%;
+          background: linear-gradient(90deg, #00f5ff, #3b82f6, #8b5cf6);
+          box-shadow: 0 0 12px rgba(0, 245, 255, 0.6);
+          z-index: 99997;
+          pointer-events: none;
         }
         @media (hover: hover) and (pointer: fine) {
           #cursor,
