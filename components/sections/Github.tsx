@@ -152,13 +152,14 @@ export default function Github() {
         />
 
         <motion.div
-          className="card-surface p-8 rounded-3xl transition-all"
+          className="glass-card spotlight p-6 sm:p-10 rounded-3xl transition-all"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           whileHover={{ y: -5 }}
         >
+          <div className="relative z-10">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
             <h3 className="text-2xl font-bold text-cyber-cyan flex items-center gap-2 section-title">
               <GithubIcon size={28} />@{site.githubUsername}
@@ -263,6 +264,7 @@ export default function Github() {
                 </motion.a>
               ))}
             </div>
+          </div>
           </div>
         </motion.div>
       </div>

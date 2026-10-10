@@ -1,28 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ChevronDown, FileText, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowUpRight, FileText, Github, Linkedin, Mail, ShieldCheck } from 'lucide-react';
 import { site } from '@/lib/site';
 
 export default function Hero() {
-  const containerVariants = {
+  const container = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
   };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    },
+  const item = {
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
   };
 
   const socials = [
@@ -34,41 +23,16 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full flex items-center justify-center pt-24 overflow-hidden section-shell"
+      className="relative flex min-h-screen w-full items-center overflow-hidden pt-28 pb-16"
     >
-      {/* Animated particle / grid canvas (driven by TemplateEffects) */}
-      <canvas
-        id="heroCanvas"
-        className="absolute inset-0 -z-10 h-full w-full"
-        aria-hidden="true"
-      />
-      <div className="absolute inset-0 -z-10 soft-grid opacity-20" />
+      <canvas id="heroCanvas" className="absolute inset-0 -z-10 h-full w-full" aria-hidden="true" />
 
-      {/* Glowing orbs */}
-      <div className="absolute inset-0 -z-10">
-        <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-cyber-cyan/20 rounded-full blur-3xl"
-          animate={{ x: [0, 50, -50, 0], y: [0, 50, -50, 0] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-72 h-72 bg-cyber-purple/20 rounded-full blur-3xl"
-          animate={{ x: [0, -50, 50, 0], y: [0, -50, 50, 0] }}
-          transition={{ duration: 10, repeat: Infinity }}
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          className="text-center hero-panel rounded-[2rem] px-6 py-10 md:px-10 md:py-14 lg:px-16"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Availability pill */}
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
+        {/* Left — copy */}
+        <motion.div variants={container} initial="hidden" animate="visible">
           <motion.div
-            className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-cyber-emerald/30 bg-cyber-emerald/5 px-4 py-1.5 font-jetbrains text-[0.68rem] uppercase tracking-[0.22em] text-cyber-emerald"
-            variants={itemVariants}
+            variants={item}
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyber-emerald/30 bg-cyber-emerald/5 px-4 py-1.5 font-jetbrains text-[0.68rem] uppercase tracking-[0.22em] text-cyber-emerald"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyber-emerald opacity-70" />
@@ -77,128 +41,135 @@ export default function Hero() {
             Available for opportunities
           </motion.div>
 
-          {/* Profile picture */}
-          <motion.div
-            className="mx-auto mb-8 w-24 h-24 md:w-28 md:h-28 rounded-full border border-cyber-cyan/30 bg-cyber-cyan/5 backdrop-blur-md shadow-[0_0_40px_rgba(0,245,255,0.18)] overflow-hidden ring-1 ring-white/10"
-            whileHover={{ scale: 1.03 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-          >
-            <img
-              src="/suman.png"
-              alt={site.name}
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-
-          {/* Name */}
-          <motion.h1
-            className="hero-name text-6xl md:text-7xl lg:text-8xl font-bold mb-6"
-            variants={itemVariants}
-          >
-            <span className="bg-gradient-cyber bg-clip-text text-transparent">
-              {site.name}
-            </span>
-          </motion.h1>
-
-          {/* Typed role (driven by TemplateEffects) */}
-          <div className="h-16 md:h-20 mb-8 flex items-center justify-center">
-            <span className="text-xl md:text-2xl font-bold text-cyber-cyan font-jetbrains tracking-[0.12em] uppercase">
-              <span className="text-cyber-cyan/50">// </span>
-              <span id="typed-text" />
-              <span id="typed-cursor" className="typed-cursor inline-block ml-1">
-                _
-              </span>
-            </span>
-          </div>
-
-          {/* Subtitle */}
-          <motion.p
-            className="text-lg md:text-xl text-body mb-12 max-w-2xl mx-auto font-inter"
-            variants={itemVariants}
-          >
-            Building secure, scalable applications and AI-powered systems — from
-            offensive security tooling to full-stack products — studying at{' '}
-            <span className="text-cyber-cyan font-semibold">
-              IIT Patna
-            </span>
+          <motion.p variants={item} className="mb-3 text-sm font-medium tracking-wide text-cyber-cyan/80">
+            Hi, I&apos;m
           </motion.p>
 
-          {/* CTA Buttons */}
-          <motion.div
-            className="flex flex-wrap gap-4 justify-center mb-12"
-            variants={itemVariants}
-          >
-            <motion.a
+          <motion.h1 variants={item} className="hero-name mb-6 text-6xl font-bold sm:text-7xl lg:text-8xl">
+            <span className="text-gradient">{site.name}</span>
+          </motion.h1>
+
+          <motion.div variants={item} className="mb-6 flex h-9 items-center font-jetbrains text-lg font-semibold uppercase tracking-[0.1em] text-cyber-cyan sm:text-xl">
+            <span className="text-cyber-cyan/40">{'// '}</span>
+            <span id="typed-text" />
+            <span id="typed-cursor" className="typed-cursor ml-1 inline-block">
+              _
+            </span>
+          </motion.div>
+
+          <motion.p variants={item} className="mb-9 max-w-xl text-lg leading-relaxed text-body">
+            Building secure, scalable applications and AI-powered systems — from
+            offensive security tooling to full-stack products — studying at{' '}
+            <span className="font-semibold text-white">IIT Patna</span>.
+          </motion.p>
+
+          <motion.div variants={item} className="mb-10 flex flex-wrap gap-3">
+            <a
               href="#projects"
-              className="px-8 py-3 rounded-full bg-gradient-cyber text-black font-bold section-title hover:shadow-glow-cyan transition-all"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="group inline-flex items-center gap-2 rounded-full bg-gradient-cyber px-6 py-3 font-bold text-black transition-transform hover:scale-105"
             >
               Explore Projects
-            </motion.a>
-            <motion.a
+              <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+            <a
               href="#contact"
-              className="px-8 py-3 rounded-full border-2 border-cyber-cyan text-cyber-cyan font-bold section-title hover:bg-cyber-cyan/10 transition-all"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center rounded-full border border-white/15 px-6 py-3 font-semibold text-white transition-colors hover:border-cyber-cyan/50 hover:bg-cyber-cyan/5"
             >
               Contact Me
-            </motion.a>
-            <motion.a
-              href={site.socials.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 rounded-full border-2 border-cyber-blue text-cyber-blue font-bold section-title hover:bg-cyber-blue/10 transition-all"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              GitHub
-            </motion.a>
-            <motion.a
+            </a>
+            <a
               href={site.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3 rounded-full border-2 border-cyber-emerald text-cyber-emerald font-bold section-title hover:bg-cyber-emerald/10 transition-all inline-flex items-center gap-2"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 font-semibold text-white transition-colors hover:border-cyber-emerald/50 hover:bg-cyber-emerald/5"
             >
-              <FileText size={18} />
-              Download Resume
-            </motion.a>
+              <FileText size={17} /> Resume
+            </a>
           </motion.div>
 
-          {/* Social Icons */}
-          <motion.div
-            className="flex gap-6 justify-center"
-            variants={itemVariants}
-          >
-            {socials.map(({ Icon, link, label }, i) => (
-              <motion.a
-                key={i}
+          <motion.div variants={item} className="flex items-center gap-4">
+            {socials.map(({ Icon, link, label }) => (
+              <a
+                key={label}
                 href={link}
                 target={link.startsWith('mailto:') ? undefined : '_blank'}
                 rel={link.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                 aria-label={label}
-                className="p-3 rounded-full border border-cyber-cyan/20 text-cyber-cyan hover:border-cyber-cyan hover:bg-cyber-cyan/10 transition-all bg-black/20"
-                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/70 transition-all hover:-translate-y-0.5 hover:border-cyber-cyan/40 hover:text-cyber-cyan"
               >
-                <Icon size={20} />
-              </motion.a>
+                <Icon size={19} />
+              </a>
             ))}
+            <span className="ml-2 hidden text-sm text-white/40 sm:block">
+              {site.location}
+            </span>
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator */}
+        {/* Right — framed portrait */}
         <motion.div
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
+          className="relative mx-auto w-full max-w-md"
         >
-          <ChevronDown className="text-cyber-cyan" size={32} />
+          <div className="relative aspect-square">
+            {/* rotating conic ring */}
+            <div className="conic-ring absolute inset-0 animate-spin-slow rounded-[2rem] opacity-60 blur-[2px]" />
+            <div className="absolute inset-[2px] rounded-[2rem] bg-[#080b17]" />
+
+            <div className="absolute inset-3 overflow-hidden rounded-[1.7rem] border border-white/10">
+              <img
+                src="/suman.png"
+                alt={site.name}
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            </div>
+
+            {/* floating badges */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 5, repeat: Infinity }}
+              className="glass-card absolute -left-5 top-8 flex items-center gap-2 px-3 py-2 text-xs"
+            >
+              <ShieldCheck size={15} className="text-cyber-cyan" />
+              <span className="font-semibold text-white">Security + AI</span>
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 6, repeat: Infinity, delay: 0.4 }}
+              className="glass-card absolute -right-4 top-1/3 px-4 py-3 text-center"
+            >
+              <div className="text-lg font-bold text-gradient">58</div>
+              <div className="text-[0.65rem] uppercase tracking-wider text-white/60">Repos</div>
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 5.5, repeat: Infinity, delay: 0.8 }}
+              className="glass-card absolute -bottom-4 left-6 flex items-center gap-2 px-3 py-2 text-xs"
+            >
+              <span className="h-2 w-2 rounded-full bg-cyber-purple" />
+              <span className="font-semibold text-white">IIT Patna</span>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
+
+      {/* scroll cue */}
+      <motion.a
+        href="#about"
+        aria-label="Scroll down"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <span className="block h-9 w-5 rounded-full border border-white/25 p-1">
+          <span className="mx-auto block h-1.5 w-1.5 rounded-full bg-cyber-cyan" />
+        </span>
+      </motion.a>
     </section>
   );
 }

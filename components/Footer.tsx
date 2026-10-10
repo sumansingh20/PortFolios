@@ -2,118 +2,98 @@
 
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Heart } from 'lucide-react';
-import SectionHeading from '@/components/SectionHeading';
 import { site } from '@/lib/site';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  return (
-    <footer className="relative py-14 w-full border-t border-cyber-cyan/10 backdrop-blur-md bg-glass">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          index="09"
-          title="Stay In Touch"
-          subtitle="A quick way to reach me for work, research, or collaboration."
-        />
-        <div className="grid md:grid-cols-3 gap-12 mb-8">
-          {/* About */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-lg font-bold text-cyber-cyan mb-3 section-title">
-              {site.name}
-            </h3>
-            <p className="text-body text-sm font-inter">
-              Security Engineer & Full-Stack Developer from IIT Patna, building
-              secure, scalable applications and AI-powered systems.
-            </p>
-          </motion.div>
+  const quickLinks = [
+    { label: 'Home', href: '#hero' },
+    { label: 'About', href: '#about' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Contact', href: '#contact' },
+  ];
 
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="text-sm font-bold text-cyber-cyan mb-3 font-jetbrains tracking-[0.18em] uppercase">LINKS</h4>
+  const socials = [
+    { Icon: Github, link: site.socials.github, label: 'GitHub' },
+    { Icon: Linkedin, link: site.socials.linkedin, label: 'LinkedIn' },
+    { Icon: Mail, link: `mailto:${site.email}`, label: 'Email' },
+  ];
+
+  return (
+    <footer className="relative border-t border-white/10 py-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.div
+          className="grid gap-10 pb-10 md:grid-cols-[1.4fr_1fr_1fr]"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <div>
+            <a href="#hero" className="mb-4 inline-flex items-center gap-3">
+              <span className="relative h-10 w-10 overflow-hidden rounded-xl ring-1 ring-white/15">
+                <img src="/suman.png" alt={site.name} className="h-full w-full object-cover" />
+              </span>
+              <span className="text-lg font-bold tracking-tight text-white section-title">
+                Suman<span className="text-cyber-cyan">.</span> Kumar
+              </span>
+            </a>
+            <p className="max-w-sm text-body text-sm font-inter">
+              Security-focused developer and BSc Computer Science &amp; Data
+              Analytics student at IIT Patna, building secure applications and
+              AI-powered systems.
+            </p>
+          </div>
+
+          <div>
+            <h4 className="mb-4 font-jetbrains text-sm font-bold uppercase tracking-[0.18em] text-cyber-cyan">
+              Links
+            </h4>
             <ul className="space-y-2 text-body text-sm font-inter">
-              {[
-                { label: 'Home', href: '#hero' },
-                { label: 'About', href: '#about' },
-                { label: 'Projects', href: '#projects' },
-                { label: 'Contact', href: '#contact' },
-                {
-                  label: 'Resume',
-                  href: site.resumeUrl,
-                  external: true,
-                },
-              ].map((link, i) => (
-                <li key={i}>
-                  <a
-                    href={link.href}
-                    target={link.external ? '_blank' : undefined}
-                    rel={link.external ? 'noopener noreferrer' : undefined}
-                    className="hover:text-cyber-cyan transition-colors"
-                  >
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="transition-colors hover:text-cyber-cyan">
                     {link.label}
                   </a>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Social */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="text-sm font-bold text-cyber-cyan mb-3 font-jetbrains tracking-[0.18em] uppercase">FOLLOW</h4>
-            <div className="flex gap-4">
-              {[
-                { Icon: Github, link: site.socials.github },
-                { Icon: Linkedin, link: site.socials.linkedin },
-                { Icon: Mail, link: `mailto:${site.email}` },
-              ].map(({ Icon, link }, i) => (
+          <div>
+            <h4 className="mb-4 font-jetbrains text-sm font-bold uppercase tracking-[0.18em] text-cyber-cyan">
+              Follow
+            </h4>
+            <div className="mb-5 flex gap-3">
+              {socials.map(({ Icon, link, label }) => (
                 <motion.a
-                  key={i}
+                  key={label}
                   href={link}
                   target={link.startsWith('mailto:') ? undefined : '_blank'}
                   rel={link.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                  className="p-2 rounded-xl border border-cyber-cyan/20 text-cyber-cyan hover:border-cyber-cyan hover:bg-cyber-cyan/10 transition-all"
-                  whileHover={{ scale: 1.1 }}
+                  aria-label={label}
+                  className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/70 transition-all hover:border-cyber-cyan/40 hover:text-cyber-cyan"
+                  whileHover={{ y: -3 }}
                 >
                   <Icon size={18} />
                 </motion.a>
               ))}
             </div>
-          </motion.div>
-        </div>
+            <p className="text-xs text-white/45 font-jetbrains">{site.location}</p>
+          </div>
+        </motion.div>
 
-        {/* Divider */}
-        <div className="border-t border-cyber-cyan/10 pt-8">
-          <motion.div
-            className="flex flex-col md:flex-row justify-between items-center text-body text-sm font-inter"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <p className="flex items-center gap-1">
-              © {currentYear} Suman Kumar. Made with{' '}
-              <Heart size={16} className="text-cyber-cyan" /> using Next.js &
-              Tailwind.
-            </p>
-            <p className="text-xs text-gray-500 mt-4 md:mt-0 font-jetbrains tracking-[0.18em] uppercase">
-              Building Intelligent Secure Systems for the Future
-            </p>
-          </motion.div>
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-body text-sm font-inter md:flex-row">
+          <p className="flex items-center gap-1.5">
+            © {currentYear} Suman Kumar. Made with{' '}
+            <Heart size={15} className="fill-cyber-cyan/50 text-cyber-cyan" /> using
+            Next.js &amp; Tailwind.
+          </p>
+          <p className="font-jetbrains text-xs uppercase tracking-[0.18em] text-white/40">
+            {site.email}
+          </p>
         </div>
       </div>
     </footer>

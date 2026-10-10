@@ -174,12 +174,12 @@ export default function Contact() {
         <SectionHeading
           index="08"
           title="Let's Connect"
-          subtitle="If you want to build something secure, test an idea, or discuss an opportunity, this is the fastest way to reach me."
+          subtitle="Best reachable by email or LinkedIn — pick whichever fits the opportunity you have in mind."
         />
 
         <div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr]">
           <motion.div
-            className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-glass p-6 sm:p-8"
+            className="glass-card spotlight relative overflow-hidden rounded-[2rem] p-6 sm:p-8"
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
@@ -202,12 +202,12 @@ export default function Contact() {
 
               <div className="space-y-3">
                 <h3 className="section-title text-3xl md:text-4xl text-white">
-                  Fast, professional communication for projects that matter.
+                  Send a clear brief, get a direct answer.
                 </h3>
                 <p className="text-body max-w-2xl leading-8">
-                  I keep communication simple: concise project context, clear scope, and a direct next step.
-                  If you are hiring, collaborating, or reviewing a portfolio project, reach out through the
-                  channel that fits best.
+                  Include the role, the project, or the problem you are solving.
+                  A quick note on scope, stack, and timeline gets you the fastest,
+                  most useful reply.
                 </p>
               </div>
 
@@ -279,7 +279,7 @@ export default function Contact() {
           </motion.div>
 
           <motion.div
-            className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-glass p-6 sm:p-8"
+            className="glass-card spotlight relative overflow-hidden rounded-[2rem] p-6 sm:p-8"
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}

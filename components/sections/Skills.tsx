@@ -111,13 +111,13 @@ export default function Skills() {
     <section id="skills" className="section-shell w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          index="04"
+          index="02"
           title="Skills & Expertise"
           subtitle="A technical toolkit spanning defensive security, AI systems, and modern full-stack delivery."
         />
 
         <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -126,21 +126,29 @@ export default function Skills() {
           {skillCategories.map((category, i) => (
             <motion.div
               key={i}
-              className="card-surface p-6 rounded-2xl transition-all group"
+              className="glass-card spotlight p-6 overflow-hidden group"
               variants={itemVariants}
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -6 }}
             >
-              <h3
-                className={`text-lg font-bold mb-4 bg-gradient-to-r ${category.color} bg-clip-text text-transparent section-title`}
-              >
-                {category.category}
-              </h3>
-              <div className="flex flex-wrap gap-2">
+              <div
+                className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${category.color} opacity-70`}
+              />
+              <div className="relative z-10 mb-5 flex items-center justify-between">
+                <h3
+                  className={`text-lg font-bold bg-gradient-to-r ${category.color} bg-clip-text text-transparent section-title`}
+                >
+                  {category.category}
+                </h3>
+                <span className="font-jetbrains text-xs text-white/35">
+                  {String(category.skills.length).padStart(2, '0')}
+                </span>
+              </div>
+              <div className="relative z-10 flex flex-wrap gap-2">
                 {category.skills.map((skill, j) => (
                   <motion.span
                     key={j}
-                    className="px-3 py-1 rounded-full text-xs badge-chip font-inter hover:scale-105 transition-transform cursor-default"
-                    whileHover={{ scale: 1.05 }}
+                    className="px-3 py-1 rounded-full text-xs badge-chip font-inter transition-transform cursor-default"
+                    whileHover={{ scale: 1.06 }}
                   >
                     {skill}
                   </motion.span>

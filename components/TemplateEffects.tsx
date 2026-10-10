@@ -165,6 +165,24 @@ export default function TemplateEffects() {
     if (typeof window === 'undefined') return;
     if (prefersReducedMotion) return;
 
+    // Spotlight cards follow the pointer (event delegation)
+    const onMove = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const card = target?.closest?.('.spotlight') as HTMLElement | null;
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+    };
+
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMove);
+  }, [prefersReducedMotion]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (prefersReducedMotion) return;
+
     // Typed text
     const typedEl = document.getElementById('typed-text');
     if (typedEl) {

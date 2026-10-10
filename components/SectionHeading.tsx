@@ -13,21 +13,27 @@ export default function SectionHeading({
   index,
   title,
   subtitle,
-  align = 'center',
+  align = 'left',
 }: SectionHeadingProps) {
-  const alignClass = align === 'left' ? 'items-start text-left' : 'items-center text-center';
+  const alignClass =
+    align === 'left' ? 'items-start text-left' : 'items-center text-center mx-auto';
 
   return (
     <motion.div
-      className={`mb-14 flex flex-col gap-4 ${alignClass}`}
-      initial={{ opacity: 0, y: 18 }}
+      className={`mb-16 flex flex-col gap-5 ${alignClass} ${align === 'center' ? 'max-w-3xl' : ''}`}
+      initial={{ opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.65 }}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
       viewport={{ once: true }}
     >
-      {index ? <span className="section-kicker">{index}</span> : null}
-      <h2 className="section-title text-4xl md:text-5xl lg:text-6xl">
-        <span className="bg-gradient-cyber bg-clip-text text-transparent">{title}</span>
+      <div className="flex items-center gap-4">
+        {index ? (
+          <span className="section-number">{index}</span>
+        ) : null}
+        <span className="h-px w-14 bg-gradient-to-r from-cyber-cyan/70 to-transparent" />
+      </div>
+      <h2 className="heading-xl">
+        <span className="text-gradient">{title}</span>
       </h2>
       {subtitle ? <p className="section-subtitle">{subtitle}</p> : null}
     </motion.div>

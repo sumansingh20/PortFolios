@@ -27,17 +27,21 @@ export default function Certifications() {
           {certifications.map((cert, i) => (
             <motion.div
               key={i}
-              className="card-surface p-4 rounded-2xl transition-all group flex items-center gap-3"
+              className="glass-card spotlight p-4 rounded-2xl transition-all group flex items-center gap-3"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: i * 0.05 }}
               viewport={{ once: true }}
               whileHover={{ x: 5 }}
             >
-              <Award className="text-cyber-emerald flex-shrink-0" size={20} />
-              <span className="text-body font-inter group-hover:text-white transition-colors">
-                {cert}
-              </span>
+              <div className="relative z-10 flex items-center gap-3">
+                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-cyber-emerald/25 bg-cyber-emerald/10">
+                  <Award className="text-cyber-emerald" size={18} />
+                </div>
+                <span className="text-body font-inter group-hover:text-white transition-colors">
+                  {cert}
+                </span>
+              </div>
             </motion.div>
           ))}
         </div>
