@@ -45,13 +45,14 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Suman Kumar', url: 'https://github.com/sumansingh20' }],
   creator: 'Suman Kumar',
-  metadataBase: new URL('https://github.com/sumansingh20/PortFolios'),
+  metadataBase: new URL('https://sumanportfolios.vercel.app'),
   openGraph: {
     title: 'Suman Kumar - Security Engineer & Full-Stack Developer',
     description:
       'Security Engineer and Full-Stack Developer from IIT Patna. Building secure, scalable applications and AI-powered systems.',
     type: 'website',
     siteName: 'Suman Kumar',
+    url: 'https://sumanportfolios.vercel.app',
   },
   twitter: {
     card: 'summary_large_image',
